@@ -26,11 +26,13 @@ class User(AbstractUser):
         (LOGIN_KAKAO, "Kakao"),
     )
 
+    avatar = models.ImageField(upload_to="avatars", blank=True)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
     bio = models.TextField(null=True, blank=True)
     homepage = models.TextField(null=True, blank=True)
     birthdate = models.DateField(null=True, blank=True)
     email_verified = models.BooleanField(default=False)
+    email_secret = models.CharField(max_length=120, default="", blank=True)
     login_method = models.CharField(
         max_length=50, choices=LOGIN_CHOICES, default=LOGIN_EMAIL
     )
