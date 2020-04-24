@@ -114,6 +114,11 @@ ENV/
 env.bak/
 venv.bak/
 .vscode/
+<<<<<<< HEAD
+=======
+Pipfile
+Pipfile.lock
+>>>>>>> 2eb9aa21c5a4ed8d6373dfec3a95d04273e42c58
 
 # Spyder project settings
 .spyderproject
