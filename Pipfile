@@ -9,6 +9,7 @@ black = "*"
 
 [packages]
 django = "==3.0.4"
+pillow = "*"
 
 [requires]
 python_version = "3.8"
