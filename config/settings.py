@@ -46,6 +46,8 @@ PROJECT_APPS = [
     "feedbacks.apps.FeedbacksConfig",
     "times.apps.TimesConfig",
     "core.apps.CoreConfig",
+    "todos.apps.TodosConfig",
+    "penalties.apps.PenaltiesConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
