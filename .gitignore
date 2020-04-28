@@ -60,9 +60,9 @@ cover/
 *.log
 local_settings.py
 migrations/
+.vscode/
 db.sqlite3
 db.sqlite3-journal
-/migratinos
 
 # Flask stuff:
 instance/
