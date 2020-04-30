@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block base_main %}
+{% endblock base_main %}
+
+{% block content%}
+    <div>
+        {% for object in todo_list %}
+            <div>
+                <input type="checkbox" value="checked"/>
+                <span> {{object.contents}} <i class="fas fa-trash-alt"></i></span>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
