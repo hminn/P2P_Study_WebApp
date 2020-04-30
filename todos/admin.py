@@ -4,7 +4,19 @@ from . import models
 # Register your models here.
 @admin.register(models.TodoList)
 class TodoListAdmin(admin.ModelAdmin):
-    pass
+    fieldsets = (
+        (
+            "Custom Inform",
+            {"fields": ("contents", "user", "checked", "submit_check",)},
+        ),
+    )
+
+    list_display = (
+        "user",
+        "checked",
+        "submit_check",
+        "created_date",
+    )
 
 
 @admin.register(models.WeekTask)
