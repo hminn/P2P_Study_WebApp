@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block base_main %}
+{% endblock base_main %}
+
+{% block page_title %}
+    Time Table
+{% endblock page_title %}
+
+{% block content%}
+<div class="row tm-content-row mt-5">
+    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+        <div class="tm-bg-primary-dark tm-block-table">
+            <h2 class="tm-block-title">Time Table</h2>
+            <div class="h-full w-full p-1">
+                <div class="tm-part mb-2">
+                    <div class="time-part h-full w-1/5 flex items-center justify-center">
+                        <span>09:00</span>
+                    </div>
+                    <div class="task-part h-full w-4/5 py-1 overflow-auto">
+                        <div class="container flex flex-col">
+                            {% for object in part_one %}
+                                <form method="POST">
+                                {% csrf_token %}
+                                    <div class="mb-2">
+                                        <span>
+                                            <i class="fas fa-arrow-circle-right"></i>
+                                        </span>
+                                        <span class="mx-1 my-1 h-full overflow-auto">
+                                            {{object.contents}}
+                                        </span>
+                                        <button class="w-6 h-6 rounded-full bg-blue-500 text-white" type="submit" name="del-task" value="{{object.id}}">
+                                            <i class="fas fa-trash-alt text-xs"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% endfor %}
+                        </div>
+                        <div class="">
+                            <form method="POST" class="flex">
+                                {% csrf_token %}
+                                <div class="w-full h-12">
+                                    {{form}}
+                                </div>
+                                <span class="flex my-auto">
+                                    <button type="submit" name="add-task" value="one" class="mx-3 my-2 w-12 h-12 rounded-full bg-red-500 text-white text-center"><i class="fas fa-plus text-xl"></i></button>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class=" tm-part mb-2">
+                    <div class="time-part h-full w-1/5 flex items-center justify-center">
+                        <span>09:00</span>
+                    </div>
+                    <div class="task-part h-full w-4/5 py-1 overflow-auto">
+                        <div class="container flex flex-col">
+                            {% for object in part_two %}
+                                <form method="POST">
+                                {% csrf_token %}
+                                    <div class="mb-2">
+                                        <span>
+                                            <i class="fas fa-arrow-circle-right"></i>
+                                        </span>
+                                        <span class="mx-1 my-1 h-full overflow-auto">
+                                            {{object.contents}}
+                                        </span>
+                                        <button class="w-6 h-6 rounded-full bg-blue-500 text-white" type="submit" name="del-task" value="{{object.id}}">
+                                            <i class="fas fa-trash-alt text-xs"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% endfor %}
+                        </div>
+                        <div class="">
+                            <form method="POST" class="flex">
+                                {% csrf_token %}
+                                <div class="w-full h-12">
+                                    {{form}}
+                                </div>
+                                <span class="flex my-auto">
+                                    <button type="submit" name="add-task" value="two" class="mx-3 my-2 w-12 h-12 rounded-full bg-red-500 text-white text-center"><i class="fas fa-plus text-xl"></i></button>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tm-part">
+                    <div class="time-part h-full w-1/5 flex items-center justify-center">
+                        <span>09:00</span>
+                    </div>
+                    <div class="task-part h-full w-4/5 py-1 overflow-auto">
+                        <div class="container flex flex-col">
+                            {% for object in part_three %}
+                                <form method="POST">
+                                {% csrf_token %}
+                                    <div class="mb-2">
+                                        <span>
+                                            <i class="fas fa-arrow-circle-right"></i>
+                                        </span>
+                                        <span class="mx-1 my-1 h-full overflow-auto">
+                                            {{object.contents}}
+                                        </span>
+                                        <button class="w-6 h-6 rounded-full bg-blue-500 text-white" type="submit" name="del-task" value="{{object.id}}">
+                                            <i class="fas fa-trash-alt text-xs"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% endfor %}
+                        </div>
+                        <div class="">
+                            <form method="POST" class="flex">
+                                {% csrf_token %}
+                                <div class="w-full h-12">
+                                    {{form}}
+                                </div>
+                                <span class="flex my-auto">
+                                    <button type="submit" name="add-task" value="three" class="mx-3 my-2 w-12 h-12 rounded-full bg-red-500 text-white text-center"><i class="fas fa-plus text-xl"></i></button>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+        <div class="tm-bg-primary-dark tm-block overflow-auto">
+            <h2 class="tm-block-title">Today's TodoList</h2>
+                <div class="container flex flex-col">
+                    <form method="POST" class="save">
+                    {% csrf_token %}
+                        {% for object in todo_list %}
+                            <div class="mb-3 flex">
+                                <input type="checkbox" name="check-todo" value="{{object.id}}" {% if object.checked %}checked{% endif %}/>
+                                <span class="mx-3 h-full overflow-auto"> {{object.contents}}</span>
+                            </div>
+                        {% endfor %}
+                        <div class="flex justify-center my-3">
+                            <button type="submit" name="save" class=" w-12 h-12 rounded-full bg-red-500 text-white">save</button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
