@@ -6,13 +6,22 @@
 {% block content%}
     <div>
         {% for object in todo_list %}
-            <div>
-                <input type="checkbox" value="checked"/>
-                <span> {{object.contents}} <i class="fas fa-trash-alt"></i></span>
+        <form method="POST" class="">
+        {% csrf_token %}
+            <div class="my-2">
+                <input type="submit"/>
+                <span class="mx-1 bg-white h-full"> {{object.contents}}</span>
+                <button class="btn bg-red-500 text-white mb-3" type="submit" name="del-todo" value="{{object.id}}"><i class="fas fa-trash-alt"></i></button>
             </div>
+        </form>
         {% endfor %}
     </div>
     <div>
+        <form method="POST">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" name="add-todo">추가</button>
+        </form>
         <input type="button" value="+"/>
     </div>
 {% endblock %}
