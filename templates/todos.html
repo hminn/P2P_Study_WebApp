@@ -4,24 +4,39 @@
 {% endblock base_main %}
 
 {% block content%}
-    <div>
-        {% for object in todo_list %}
-        <form method="POST" class="">
-        {% csrf_token %}
-            <div class="my-2">
-                <input type="submit"/>
-                <span class="mx-1 bg-white h-full"> {{object.contents}}</span>
-                <button class="btn bg-red-500 text-white mb-3" type="submit" name="del-todo" value="{{object.id}}"><i class="fas fa-trash-alt"></i></button>
+<div class="row tm-content-row mt-5">
+    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+        <div class="tm-bg-primary-dark tm-block">
+            <h2 class="tm-block-title">Calendar</h2>
+            <canvas id="lineChart"></canvas>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col overflow-auto">
+        <div class="tm-bg-primary-dark tm-block h-auto">
+            <h2 class="tm-block-title">Today's TodoList</h2>
+            <div class="container flex flex-col">
+                {% for object in todo_list %}
+                <form method="POST" class="">
+                {% csrf_token %}
+                    <div class="mb-2">
+                        <input type="checkbox" class=""/>
+                        <span class="mx-3 my-1 h-full overflow-auto"> {{object.contents}}</span>
+                        <button class="w-8 h-8 rounded-full bg-red-500 text-white" type="submit" name="del-todo" value="{{object.id}}"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </form>
+                {% endfor %}
             </div>
-        </form>
-        {% endfor %}
+            <div class="">
+                <form method="POST" class="flex">
+                    {% csrf_token %}
+                    {{form}}
+                    <button type="submit" name="add-todo" class="mx-3 my-2 w-16 h-12 rounded-full bg-red-500 text-white text-center">추가</button>
+                </form>
+                <div class="flex justify-center my-3">
+                <button type="submit" name="add-form" class=" w-8 h-8 rounded-full bg-red-500 text-white"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <form method="POST">
-            {% csrf_token %}
-            {{form}}
-            <button type="submit" name="add-todo">추가</button>
-        </form>
-        <input type="button" value="+"/>
-    </div>
+</div>
 {% endblock %}

@@ -8,3 +8,9 @@ class TodoForm(forms.ModelForm):
         fields = [
             "contents",
         ]
+        labels = {
+            "contents": "",
+        }
+        widgets = {
+            "contents": forms.TextInput(attrs={"placeholder": "Write to do"}),
+        }
