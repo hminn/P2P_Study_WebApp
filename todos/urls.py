@@ -3,5 +3,6 @@ from . import views
 
 app_name = "todos"
 urlpatterns = [
-    path("base/", views.TodoListingView.as_view(), name="base"),
+    path("todos/", views.TodoListView.as_view(), name="todos"),
+    path("timetable/", views.TimeTableView.as_view(), name="timetable"),
 ]
