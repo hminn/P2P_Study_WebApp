@@ -19,6 +19,21 @@ class TodoListAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(models.TimeTask)
+class TimeTaskAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ("Custom Inform", {"fields": ("contents", "user", "checked", "part",)},),
+    )
+
+    list_display = (
+        "user",
+        "checked",
+        "created_date",
+        "part",
+    )
+    pass
+
+
 @admin.register(models.WeekTask)
 class WeekTaskAdmin(admin.ModelAdmin):
     pass
