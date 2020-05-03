@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
     <!-- https://fonts.google.com/specimen/Roboto -->
     <link rel="stylesheet" href="/static/css/fontawesome.min.css">
@@ -23,6 +24,7 @@
             {% block content%}{% endblock %}
             {% include "footer.html" %}
         </div>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <script src="/static/js/jquery-3.3.1.min.js"></script>
         <!-- https://jquery.com/download/ -->
         <script src="/static/js/moment.min.js"></script>
