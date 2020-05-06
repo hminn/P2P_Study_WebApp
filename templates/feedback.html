@@ -1,0 +1,44 @@
+{% extends "todo_base.html" %}
+
+{% block page_title %}
+    Feedback
+{% endblock page_title %}
+
+{% block left-content%}
+<div class="tm-bg-primary-dark tm-block flex flex-col justify-between">
+    <h2 class="tm-block-title">Today's TodoList</h2>
+    <div class="container flex flex-col">
+        {% for object in todo_list %}
+        {% csrf_token %}
+            <div class="mb-2">
+                <span>
+                    {% if object.checked %}
+                        <i class="far fa-check-circle text-lg text-blue-500"></i>
+                    {% else %}
+                        <i class="far fa-circle text-lg text-red-500"></i>
+                    {% endif %}
+                </span>
+                <span class="mx-2 my-1 h-full overflow-auto">
+                    {{object.contents}}
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="w-full h-10 bg-blue-900 flex justify-center items-center font-bold text-lg text-white rounded-md">
+        <div class="w-2/3 h-10 flex justify-between items-center ">
+            <span>오늘의 벌금 : {{penalty}}원</span>
+            <form method="POST">
+            {% csrf_token %}
+                <button type="submit" name="penalty_check" value="{{penalty}}" class="text-sm bg-blue-600 w-12 h-6 rounded-md">Check</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock left-content%}
+
+{% block right-content%}
+<div class="tm-bg-primary-dark tm-block overflow-auto rounded-lg">
+    <h2 class="tm-block-title">Feedback</h2>
+</div>
+{% endblock right-content%}
