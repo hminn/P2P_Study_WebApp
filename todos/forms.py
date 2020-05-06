@@ -12,7 +12,7 @@ class TodoForm(forms.ModelForm):
             "contents": "",
         }
         widgets = {
-            "contents": forms.TextInput(attrs={"placeholder": "Write to do"}),
+            "contents": forms.TextInput(attrs={"placeholder": "Write what to do"}),
         }
 
 
@@ -26,5 +26,5 @@ class TimeTaskForm(forms.ModelForm):
             "contents": "",
         }
         widgets = {
-            "contents": forms.TextInput(attrs={"placeholder": "Write to do"}),
+            "contents": forms.TextInput(attrs={"placeholder": "Write what to do"}),
         }

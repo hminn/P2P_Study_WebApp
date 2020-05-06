@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from core.models import TimeStampedModel
 
 
@@ -19,12 +20,18 @@ class TimeTask(TimeStampedModel):
 
     PART_ONE = "one"
     PART_TWO = "two"
-    PART_KAKAO = "three"
+    PART_THREE = "three"
+    PART_FOUR = "four"
+    PART_FIVE = "five"
+    PART_SIX = "six"
 
     PART_CHOICES = (
         (PART_ONE, "One"),
         (PART_TWO, "Two"),
-        (PART_KAKAO, "Three"),
+        (PART_THREE, "Three"),
+        (PART_FOUR, "four"),
+        (PART_FIVE, "five"),
+        (PART_SIX, "six"),
     )
     contents = models.TextField(null=True, blank=True)
     user = models.ForeignKey(
@@ -49,3 +56,18 @@ class WeekPlan(TimeStampedModel):
     )
     week_index = models.PositiveIntegerField(default=0)
     contents = models.TextField(null=True, blank=True)
+
+
+class Event(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def get_html_url(self):
+        url = reverse("edit", args=(self.id,))
+        return f'<a href="{url}"> {self.title} </a>'
