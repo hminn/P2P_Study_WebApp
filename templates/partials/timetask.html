@@ -1,0 +1,34 @@
+<div class="time-part h-full w-1/5 flex items-center justify-center">
+        <span>09:00</span>
+</div>
+<div class="task-part h-full w-4/5 py-1 overflow-auto">
+    <div class="container flex flex-col">
+        {% for object in part %}
+            <form method="POST">
+            {% csrf_token %}
+                <div class="mb-2">
+                    <span>
+                        <i class="fas fa-arrow-circle-right"></i>
+                    </span>
+                    <span class="mx-1 my-1 h-full overflow-auto">
+                        {{object.contents}}
+                    </span>
+                    <button class="w-6 h-6 rounded-full bg-blue-500 text-white" type="submit" name="del-task" value="{{object.id}}">
+                        <i class="fas fa-trash-alt text-xs"></i>
+                    </button>
+                </div>
+            </form>
+        {% endfor %}
+    </div>
+    <div class="">
+        <form method="POST" class="flex">
+            {% csrf_token %}
+            <div class="w-full h-12">
+                {{form}}
+            </div>
+            <span class="flex my-auto">
+                <button type="submit" name="add-task" value={{part_num}} class="mx-3 my-2 w-12 h-12 rounded-full bg-red-500 text-white text-center"><i class="fas fa-plus text-xl"></i></button>
+            </span>
+        </form>
+    </div>
+</div>
