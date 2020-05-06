@@ -1,21 +1,29 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from datetime import date
 from . import models, forms
-from django.views.generic import ListView, TemplateView, FormView
+from users import models as user_models
+from django.views import View
+from django.views.generic import FormView, ListView
+from calendar import HTMLCalendar
+from datetime import datetime, timedelta
+from django.utils.safestring import mark_safe
+from .models import Event
 
 
 class TodoListView(FormView):
-    template_name = "todos.html"
+    template_name = "todolist.html"
     form_class = forms.TodoForm
-    success_url = reverse_lazy("todos:todos")
+    success_url = reverse_lazy("todos:todolist")
 
     def get(self, request):
         todo_list = models.TodoList.objects.all()
         filtered_list = todo_list.filter(user=request.user, created_date=date.today())
         form = forms.TodoForm()
-        return render(request, "todos.html", {"todo_list": filtered_list, "form": form})
+        return render(
+            request, "todolist.html", {"todo_list": filtered_list, "form": form}
+        )
 
     def post(self, request, *args, **kwargs):
 
@@ -25,10 +33,6 @@ class TodoListView(FormView):
             obj = form.save(commit=False)
             obj.user = request.user
             obj.save()
-            if form.is_valid():
-                return self.form_valid(form)
-            else:
-                return self.form_invalid(form)
 
         # todo 삭제 버튼에 대한 POST : todo 삭제 작업 진행
         # Front-end에서 POST 요청 시,
@@ -38,7 +42,17 @@ class TodoListView(FormView):
             todo_id = request.POST.get("del-todo")
             del_query = models.TodoList.objects.filter(id=todo_id)
             del_query.delete()
-            return HttpResponseRedirect(self.get_success_url())
+
+        if "submit" in request.POST:
+            filtered_list = models.TodoList.objects.filter(
+                user=request.user, created_date=date.today()
+            )
+            filtered_list.update(submit_check=True)
+
+        if "date" in request.POST:
+            print(request.POST)
+
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class TimeTableView(FormView):
@@ -49,7 +63,9 @@ class TimeTableView(FormView):
     def get(self, request):
         todo_list = models.TodoList.objects.all()
         timetask_list = models.TimeTask.objects.all()
-        filtered_list = todo_list.filter(user=request.user, created_date=date.today())
+        filtered_list = todo_list.filter(
+            user=request.user, created_date=date.today(), submit_check=True
+        )
         filtered_one_list = timetask_list.filter(
             user=request.user, created_date=date.today(), part="one"
         )
@@ -58,6 +74,15 @@ class TimeTableView(FormView):
         )
         filtered_three_list = timetask_list.filter(
             user=request.user, created_date=date.today(), part="three"
+        )
+        filtered_four_list = timetask_list.filter(
+            user=request.user, created_date=date.today(), part="four"
+        )
+        filtered_five_list = timetask_list.filter(
+            user=request.user, created_date=date.today(), part="five"
+        )
+        filtered_six_list = timetask_list.filter(
+            user=request.user, created_date=date.today(), part="six"
         )
         form = forms.TodoForm()
         return render(
@@ -69,10 +94,14 @@ class TimeTableView(FormView):
                 "part_one": filtered_one_list,
                 "part_two": filtered_two_list,
                 "part_three": filtered_three_list,
+                "part_four": filtered_four_list,
+                "part_five": filtered_five_list,
+                "part_six": filtered_six_list,
             },
         )
 
     def post(self, request, *args, **kwargs):
+        print(dir(request.GET))
         todo_list = models.TodoList.objects.all()
         filtered_list = todo_list.filter(user=request.user, created_date=date.today())
 
@@ -82,16 +111,11 @@ class TimeTableView(FormView):
             obj.user = request.user
             obj.part = request.POST.get("add-task")
             obj.save()
-            if form.is_valid():
-                return self.form_valid(form)
-            else:
-                return self.form_invalid(form)
 
         if "del-task" in request.POST:
             task_id = request.POST.get("del-task")
             del_query = models.TimeTask.objects.filter(id=task_id)
             del_query.delete()
-            return HttpResponseRedirect(self.get_success_url())
 
         # Cheked Save 버튼에 대한 작업 : cheked data를 저장하는 작업 진행
         # Save 버튼에 대한 POST인지 확인
@@ -112,3 +136,105 @@ class TimeTableView(FormView):
                 filtered_list.update(checked=False)
 
         return HttpResponseRedirect(self.get_success_url())
+
+
+class PenaltyView(FormView):
+    template_name = "feedback.html"
+    success_url = reverse_lazy("todos:feedback")
+
+    def get(self, request):
+        todo_list = models.TodoList.objects.all()
+        filtered_list = todo_list.filter(
+            user=request.user, created_date=date.today(), submit_check=True
+        )
+        nonchecked_count = len(filtered_list.filter(checked=False))
+        unit_penalty = 1000
+        total_penalty = int(nonchecked_count) * unit_penalty
+        return render(
+            request,
+            "feedback.html",
+            {"todo_list": filtered_list, "penalty": total_penalty},
+        )
+
+    def post(self, request, *args, **kwargs):
+        if "penalty_check" in request.POST:
+            user = user_models.User.objects.filter(username=request.user)
+            if not user[0].penalty_checked:
+                user.update(today_penalty=request.POST.get("penalty_check"))
+                user[0].reset_penalty()
+                user.update(penalty_checked=True)
+        return HttpResponseRedirect(self.get_success_url())
+
+
+#############################
+
+
+class Calendar(HTMLCalendar):
+    def __init__(self, year=None, month=None):
+        self.year = year
+        self.month = month
+        super(Calendar, self).__init__()
+
+    # '일'을 td 태그로 변환하고 이벤트를 '일'순으로 필터
+    def formatday(self, day, events):
+        events_per_day = events.filter(start_time__day=day)
+        d = ""
+        for events in events_per_day:
+            d += f"<li> {Event.title} </li>"
+        if day != 0:
+            return f"<td><span class='date'>{day}</span><ul><button type='submit' name='show' value={day}> {d} </button> </ul></td>"
+        return "<td></td>"
+
+    # # '주'를 tr 태그로 변환
+    def formatweek(self, theweek, events):
+        week = ""
+        for d, weekday in theweek:
+            week += self.formatday(d, events)
+        return f"<tr> {week} </tr>"
+
+    # # '월'을 테이블 태그로 변환
+    # # 각 '월'과 '연'으로 이벤트 필터
+    def formatmonth(self, withyear=True):
+        events = Event.objects.filter(
+            start_time__year=self.year, start_time__month=self.month
+        )
+        cal = f'<table border="0" cellpadding="0" cellspacing="0" class="calendar">\n'
+        cal += f"{self.formatmonthname(self.year, self.month, withyear=withyear)}\n"
+        cal += f"{self.formatweekheader()}\n"
+        for week in self.monthdays2calendar(self.year, self.month):
+            cal += f"{self.formatweek(week, events)}\n"
+        return cal
+
+
+# 시도하였지만 실패한 부분
+# def show_todo(request):
+#     day = request.Get.get("show")
+#     d = get_date(request.GET.get("day", None))
+#     show_day = datetime(d.year, d.month, day)
+#     return render(request, "cal.html", {"show_day": show_day, "day": day})
+class CalendarView(ListView):
+    model = Event
+    template_name = "calendar.html"
+    success_url = reverse_lazy("todos:calendar")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # use today's date for the calendar
+        d = get_date(self.request.GET.get("day", None))
+        # Instantiate our calendar class with today's year and date
+        cal = Calendar(d.year, d.month)
+        # Call the formatmonth method, which returns our calendar as a table
+        html_cal = cal.formatmonth(withyear=True)
+        context["calendar"] = mark_safe(html_cal)
+        return context
+
+    def get(self, request):
+        pass
+
+
+# 현재 달력을 보고 있는 시점의 시간을 반환
+def get_date(req_day):
+    if req_day:
+        year, month = (int(x) for x in req_day.split("-"))
+        return datetime.date(year, month, day=1)
+    return datetime.today()
