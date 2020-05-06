@@ -1,0 +1,45 @@
+{% extends "todo_base.html" %}
+
+{% block page_title %}
+    Todos
+{% endblock page_title %}
+
+{% block left-content%}
+<div class="tm-bg-primary-dark tm-block">
+    <h2 class="tm-block-title">Calendar</h2>
+</div>
+{% endblock left-content%}
+{% block right-content%}
+<div class="tm-bg-primary-dark tm-block">
+    <h2 class="tm-block-title">Today's TodoList</h2>
+    <div class="container flex flex-col">
+        {% for object in todo_list %}
+        <form method="POST" class="">
+        {% csrf_token %}
+            <div class="mb-2">
+                <span><i class="fas fa-arrow-circle-right"></i></span>
+                <span class="mx-2 my-1 h-full overflow-auto"> {{object.contents}}</span>
+                <button class="w-8 h-8 rounded-full bg-red-500 text-white" type="submit" name="del-todo" value="{{object.id}}"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        </form>
+        {% endfor %}
+    </div>
+    <div class="">
+        <form method="POST" class="flex">
+            {% csrf_token %}
+            <div class="w-full h-12">
+                {{form}}
+            </div>
+            <span class="flex my-auto">
+                <button type="submit" name="add-todo" value="one" class="mx-3 my-2 w-12 h-12 rounded-full bg-red-500 text-white text-center"><i class="fas fa-plus text-xl"></i></button>
+            </span>
+        </form>
+    </div>
+    <div class="flex justify-center">
+        <form method="POST" class="w-1/5 h-10 bg-blue-900 flex justify-center items-center font-bold text-white rounded-md">
+            {% csrf_token %}
+            <button type="submit" name="submit" >Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock right-content%}
