@@ -1,12 +1,12 @@
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from . import models, forms
 from users import models as user_models
 from times import models as time_models
 from django.views.generic import FormView, ListView
 from calendar import HTMLCalendar
-from datetime import datetime, timedelta, time, date
+from datetime import datetime, time, date
 from django.utils.safestring import mark_safe
 from .models import Event
 
@@ -51,12 +51,12 @@ class TodoListView(FormView):
                 user=request.user, created_date=date.today()
             )
             filtered_list.update(submit_check=True)
-            time = time_models.Times(
+            time_obj = time_models.Times(
                 user=request.user,
                 date=datetime.today(),
                 to_do_submit=datetime.now().time(),
             )
-            time.save()
+            time_obj.save()
 
         if "fix" in request.POST:
             filtered_list = models.TodoList.objects.filter(
