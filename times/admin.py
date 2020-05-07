@@ -4,5 +4,10 @@ from . import models
 
 @admin.register(models.Times)
 class TimesAdmin(admin.ModelAdmin):
-
-    pass
+    list_display = (
+        "user",
+        "date",
+        "to_do_submit",
+        "arrive_submit",
+        "feedback_submit",
+    )

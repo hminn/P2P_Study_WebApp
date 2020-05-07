@@ -10,10 +10,10 @@ class Times(core_models.TimeStampedModel):
     user = models.ForeignKey(
         user_models.User, related_name="times", on_delete=models.CASCADE
     )
-    date = models.DateField(auto_now=True)
-    to_do_submit = models.DateTimeField(blank=True, null=True)
-    arrive_submit = models.DateTimeField(blank=True, null=True)
-    feedback_submit = models.DateTimeField(blank=True, null=True)
+    date = models.DateField(auto_now=True, null=True)
+    to_do_submit = models.TimeField(blank=True, null=True)
+    arrive_submit = models.TimeField(blank=True, null=True)
+    feedback_submit = models.TimeField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.user.username}"
