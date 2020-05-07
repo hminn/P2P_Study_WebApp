@@ -1,0 +1,28 @@
+{
+	"name": "p2p_study_webapp",
+	"version": "1.0.0",
+	"description": "![Mins_Dev_Real_Logo](https://user-images.githubusercontent.com/43171508/80201801-a36bfd80-865f-11ea-875a-8f43f021df93.jpg)",
+	"main": "index.js",
+	"scripts": {
+		"css": "gulp"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/hminn/P2P_Study_WebApp.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/hminn/P2P_Study_WebApp/issues"
+	},
+	"homepage": "https://github.com/hminn/P2P_Study_WebApp#readme",
+	"devDependencies": {
+		"autoprefixer": "^9.7.6",
+		"gulp": "^4.0.2",
+		"gulp-csso": "^4.0.1",
+		"gulp-postcss": "^8.0.0",
+		"gulp-sass": "^4.1.0",
+		"node-sass": "^4.14.0",
+		"tailwindcss": "^1.4.2"
+	}
+}

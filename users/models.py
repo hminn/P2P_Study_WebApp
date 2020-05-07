@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from datetime import date
 
 
 class User(AbstractUser):
@@ -36,3 +37,15 @@ class User(AbstractUser):
     login_method = models.CharField(
         max_length=50, choices=LOGIN_CHOICES, default=LOGIN_EMAIL
     )
+    total_penalty = models.PositiveIntegerField(default=0, null=True)
+    today_penalty = models.PositiveIntegerField(default=0, null=True)
+    penalty_checked = models.BooleanField(default=False)
+
+    # 벌금 집계를 위한 메소드 : 전체 벌금에 오늘 벌금을 반영
+    # (1) Feedback Page : check 버튼을 눌렀을 때 실행
+    def reset_penalty(self):
+        if not self.penalty_checked:
+            self.total_penalty += self.today_penalty
+            self.today_penalty = 0
+            self.save()
+        return

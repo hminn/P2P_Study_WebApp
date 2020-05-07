@@ -1,0 +1,62 @@
+{% extends "todo_base.html" %}
+
+{% block page_title %}
+    Time Table
+{% endblock page_title %}
+
+{% block clock %}
+<body onload="showClock(), study_timer()">
+    <span style="color:red"><h1 id="clock" class="clock"></h1></span>
+    <div id="timetable" class="timetable"></div>
+</body>
+<script src="/static/js/timer.js"></script>
+<script src="/static/js/clock.js"></script>
+{% endblock clock %}
+
+{% block left-content%}
+<div class="tm-bg-primary-dark tm-block-table">
+    <h2 class="tm-block-title">Time Table</h2>
+    <div class="h-full w-full p-1">
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_one part_num="one"%}
+        </div>
+        <div class=" tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_two part_num="two"%}
+        </div>
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_three part_num="three"%}
+        </div>
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_four part_num="four"%}
+        </div>
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_five part_num="five"%}
+        </div>
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_six part_num="six"%}
+        </div>
+    </div>
+</div>
+{% endblock left-content%}
+
+{% block right-content%}
+<div class="tm-bg-primary-dark tm-block overflow-auto">
+    <h2 class="tm-block-title">Today's TodoList</h2>
+    <div class="container flex flex-col">
+        <form method="POST" class="save">
+        {% csrf_token %}
+            {% for object in todo_list %}
+                <div class="mb-3 flex">
+                    <div class="mr-2">
+                        <input type="checkbox" name="check-todo" value="{{object.id}}" {% if object.checked %}checked{% endif %}/>
+                    </div>
+                    <span class="h-full overflow-auto"> {{object.contents}}</span>
+                </div>
+            {% endfor %}
+            <div class="flex justify-center my-3">
+                <button type="submit" name="save" class=" w-12 h-12 rounded-full bg-red-500 text-white">save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock right-content%}
