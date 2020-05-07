@@ -4,6 +4,15 @@
     Time Table
 {% endblock page_title %}
 
+{% block clock %}
+<body onload="showClock(), study_timer()">
+    <span style="color:red"><h1 id="clock" class="clock"></h1></span>
+    <div id="timetable" class="timetable"></div>
+</body>
+<script src="/static/js/timer.js"></script>
+<script src="/static/js/clock.js"></script>
+{% endblock clock %}
+
 {% block left-content%}
 <div class="tm-bg-primary-dark tm-block-table">
     <h2 class="tm-block-title">Time Table</h2>

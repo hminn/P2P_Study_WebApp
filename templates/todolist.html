@@ -4,11 +4,20 @@
     Todos
 {% endblock page_title %}
 
+{% block clock %}
+<body onload="showClock()">
+    <span style="color:red"><h1 id="clock" class="clock"></h1></span>
+    <div id="timetable" class="timetable"></div>
+</body>
+<script src="/static/js/clock.js"></script>
+{% endblock clock %}
+
 {% block left-content%}
 <div class="tm-bg-primary-dark tm-block">
     <h2 class="tm-block-title">Calendar</h2>
 </div>
 {% endblock left-content%}
+
 {% block right-content%}
 <div class="tm-bg-primary-dark tm-block">
     <h2 class="tm-block-title">Today's TodoList</h2>
@@ -38,7 +47,11 @@
     <div class="flex justify-center">
         <form method="POST" class="w-1/5 h-10 bg-blue-900 flex justify-center items-center font-bold text-white rounded-md">
             {% csrf_token %}
-            <button type="submit" name="submit" >Submit</button>
+            {% if submit_check %}
+                <button type="submit" name="fix" class="w-full h-full">수정</button>
+            {% else %}
+                <button type="submit" name="submit" class="w-full h-full">제출</button>
+            {% endif %}
         </form>
     </div>
 </div>

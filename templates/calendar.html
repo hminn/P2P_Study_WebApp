@@ -1,16 +1,16 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-<body>
-<form action="/cal/{{day}}" method="GET">
-    {% csrf_token %}
-    {{calendar}}
-</form>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <body>
+        <form method="GET">
+            {% csrf_token %}
+            {{calendar}}
+        </form>
+    </body>
 </html>
