@@ -1,7 +1,6 @@
 from django.db import models
 from core import models as core_models
 from users import models as user_models
-from times import models as time_models
 
 
 class Feedback(core_models.TimeStampedModel):
