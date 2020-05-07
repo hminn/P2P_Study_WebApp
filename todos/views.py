@@ -1,13 +1,12 @@
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
-from datetime import date
 from . import models, forms
 from users import models as user_models
-from django.views import View
+from times import models as time_models
 from django.views.generic import FormView, ListView
 from calendar import HTMLCalendar
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time, date
 from django.utils.safestring import mark_safe
 from .models import Event
 
@@ -19,10 +18,14 @@ class TodoListView(FormView):
 
     def get(self, request):
         todo_list = models.TodoList.objects.all()
+        (user,) = user_models.User.objects.filter(username=request.user)
+        check = user.times.filter(date=datetime.today()).count()
         filtered_list = todo_list.filter(user=request.user, created_date=date.today())
         form = forms.TodoForm()
         return render(
-            request, "todolist.html", {"todo_list": filtered_list, "form": form}
+            request,
+            "todolist.html",
+            {"todo_list": filtered_list, "form": form, "submit_check": check},
         )
 
     def post(self, request, *args, **kwargs):
@@ -48,9 +51,18 @@ class TodoListView(FormView):
                 user=request.user, created_date=date.today()
             )
             filtered_list.update(submit_check=True)
+            time = time_models.Times(
+                user=request.user,
+                date=datetime.today(),
+                to_do_submit=datetime.now().time(),
+            )
+            time.save()
 
-        if "date" in request.POST:
-            print(request.POST)
+        if "fix" in request.POST:
+            filtered_list = models.TodoList.objects.filter(
+                user=request.user, created_date=date.today(), submit_check=False,
+            )
+            filtered_list.update(submit_check=True)
 
         return HttpResponseRedirect(self.get_success_url())
 
@@ -138,34 +150,6 @@ class TimeTableView(FormView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class PenaltyView(FormView):
-    template_name = "feedback.html"
-    success_url = reverse_lazy("todos:feedback")
-
-    def get(self, request):
-        todo_list = models.TodoList.objects.all()
-        filtered_list = todo_list.filter(
-            user=request.user, created_date=date.today(), submit_check=True
-        )
-        nonchecked_count = len(filtered_list.filter(checked=False))
-        unit_penalty = 1000
-        total_penalty = int(nonchecked_count) * unit_penalty
-        return render(
-            request,
-            "feedback.html",
-            {"todo_list": filtered_list, "penalty": total_penalty},
-        )
-
-    def post(self, request, *args, **kwargs):
-        if "penalty_check" in request.POST:
-            user = user_models.User.objects.filter(username=request.user)
-            if not user[0].penalty_checked:
-                user.update(today_penalty=request.POST.get("penalty_check"))
-                user[0].reset_penalty()
-                user.update(penalty_checked=True)
-        return HttpResponseRedirect(self.get_success_url())
-
-
 #############################
 
 
@@ -182,7 +166,7 @@ class Calendar(HTMLCalendar):
         for events in events_per_day:
             d += f"<li> {Event.title} </li>"
         if day != 0:
-            return f"<td><span class='date'>{day}</span><ul><button type='submit' name='show' value={day}> {d} </button> </ul></td>"
+            return f"<td><span class='date'>{day}</span><ul><button type='submit' name='date' value='{self.year},{self.month},{day}'> {d} </button> </ul></td>"
         return "<td></td>"
 
     # # '주'를 tr 태그로 변환
@@ -217,6 +201,12 @@ class CalendarView(ListView):
     template_name = "calendar.html"
     success_url = reverse_lazy("todos:calendar")
 
+    def get_success_url(self):
+        # """Return the URL to redirect to after processing a valid form."""
+        # if not self.success_url:
+        #    raise ImproperlyConfigured("No URL to redirect to. Provide a success_url.")
+        return str(self.success_url)  # success_url may be laz
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # use today's date for the calendar
@@ -228,8 +218,10 @@ class CalendarView(ListView):
         context["calendar"] = mark_safe(html_cal)
         return context
 
-    def get(self, request):
-        pass
+    def post(self, request, *args, **kwargs):
+        if "date" in request.GET:
+            year, month, day = request.POST.get("date").split(",")
+        return HttpResponseRedirect(self.get_success_url())
 
 
 # 현재 달력을 보고 있는 시점의 시간을 반환
