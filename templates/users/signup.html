@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Sign Up
+{% endblock page_title %}
+
+{% block base_main %}
+{% endblock base_main %}
+
+{% block content %}
+    <div class="container xl:w-1/4 lg:w-5/12 md:w-1/2 sm:w-1/2 mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
+        {% include "partials/social_login.html" %}
+
+        {% include "mixins/auth/auth_form.html" with form=form cta="Sign up" %}
+        <div>
+            <span class="mr-2"> Have an account?</span>
+            <a href="{% url 'users:login' %}" class="text-teal-500 font-bold">Log in</a>
+        </div>
+    </div>
+{% endblock content %}
