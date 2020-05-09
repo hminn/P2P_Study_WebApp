@@ -198,7 +198,7 @@ class Calendar(HTMLCalendar):
 #     return render(request, "cal.html", {"show_day": show_day, "day": day})
 class CalendarView(ListView):
     model = Event
-    template_name = "calendar.html"
+    template_name = "todolist.html"
     success_url = reverse_lazy("todos:calendar")
 
     def get_success_url(self):

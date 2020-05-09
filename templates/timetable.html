@@ -6,8 +6,8 @@
 
 {% block clock %}
 <body onload="showClock(), study_timer()">
-    <span style="color:red"><h1 id="clock" class="clock"></h1></span>
-    <div id="timetable" class="timetable"></div>
+    <h1 id="clock" class="clock"></h1>
+    <h1 id="timetable" class="timetable"></h1>
 </body>
 <script src="/static/js/timer.js"></script>
 <script src="/static/js/clock.js"></script>
@@ -17,19 +17,31 @@
 <div class="tm-bg-primary-dark tm-block-table">
     <h2 class="tm-block-title">Time Table</h2>
     <div class="h-full w-full p-1">
-        <div class="tm-part mb-2">
+        <div class="tm-part mb-2"> 09:00 ~ 10:45
             {% include "partials/timetask.html" with part=part_one part_num="one"%}
         </div>
-        <div class=" tm-part mb-2">
+        <div class="tm-part mb-2"> 10:45 ~ 11:00
+            <h3>쉬는 시간 입니다</h3>
+        </div>
+        <div class=" tm-part mb-2"> 11:00 ~ 13:00
             {% include "partials/timetask.html" with part=part_two part_num="two"%}
         </div>
-        <div class="tm-part mb-2">
+        <div class="tm-part mb-2"> 13:00 ~ 14:30
+            <h3>점심 시간 입니다</h3>
+        </div>
+        <div class="tm-part mb-2"> 14:30 ~ 15:45
             {% include "partials/timetask.html" with part=part_three part_num="three"%}
         </div>
-        <div class="tm-part mb-2">
+        <div class="tm-part mb-2"> 15:45 ~ 16:00
+            <h3>쉬는 시간 입니다</h3>
+        </div>
+        <div class="tm-part mb-2"> 16:00 ~ 18:00
             {% include "partials/timetask.html" with part=part_four part_num="four"%}
         </div>
-        <div class="tm-part mb-2">
+        <div class="tm-part mb-2"> 18:00 ~ 20:00
+            <h3>저녁 시간 입니다</h3>
+        </div>
+        <div class="tm-part mb-2"> 20:00 ~
             {% include "partials/timetask.html" with part=part_five part_num="five"%}
         </div>
         <div class="tm-part mb-2">

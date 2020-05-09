@@ -9,12 +9,19 @@
     <span style="color:red"><h1 id="clock" class="clock"></h1></span>
     <div id="timetable" class="timetable"></div>
 </body>
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 <script src="/static/js/clock.js"></script>
 {% endblock clock %}
 
 {% block left-content%}
 <div class="tm-bg-primary-dark tm-block">
     <h2 class="tm-block-title">Calendar</h2>
+    <div>
+    <form method="GET">
+        {% csrf_token %}
+        {{calendar}}
+    </form>
+    </div>
 </div>
 {% endblock left-content%}
 

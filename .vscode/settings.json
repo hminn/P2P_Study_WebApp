@@ -1,5 +1,5 @@
 {
-	"python.pythonPath": "C:\\Users\\143011\\.virtualenvs\\P2P_Study_WebApp-j3kAaIbX\\Scripts\\python.exe",
+	"python.pythonPath": "/Users/sjeon/.local/share/virtualenvs/P2P_Study_WebApp-7N8CvtFR/bin/python",
 	"python.linting.pylintEnabled": false,
 	"python.linting.flake8Enabled": true,
 	"python.linting.enabled": true,
