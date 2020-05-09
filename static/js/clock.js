@@ -8,12 +8,11 @@ function showClock() {
 	var minutes = date.getMinutes();
 	var seconds = date.getSeconds();
 	var clockTarget = document.getElementById("clock");
-	// if (hours < 12) {
-	//     hours = "AM";
-	// }
-	// else {
-	//     hours = "PM";
-	// }
+	if (hours > 9) {
+		clockTarget.style.color = "#3232FF";
+	} else {
+		clockTarget.style.color = "black";
+	}
 	clockTarget.innerText =
 		`${month + 1}월 ${clockDate}일 ${week[day]}요일` +
 		" " +

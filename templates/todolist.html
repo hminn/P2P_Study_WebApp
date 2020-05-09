@@ -34,7 +34,7 @@
         {% endfor %}
     </div>
     <div class="">
-        <form method="POST" class="flex">
+        <form method="POST" class="flex" autocomplete="off">
             {% csrf_token %}
             <div class="w-full h-12">
                 {{form}}

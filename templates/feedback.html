@@ -40,7 +40,7 @@
 <div class="tm-bg-primary-dark tm-block overflow-auto rounded-lg">
     <h2 class="tm-block-title">Feedback</h2>
     <div class="w-full h-full">
-        <form action="" method="post">
+        <form action="" method="post" autocomplete="off">
             {% csrf_token %}
             {{form}}
             <button type="submit" name="submit">하이</button>

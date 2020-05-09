@@ -12,6 +12,7 @@ django = "==3.0.4"
 pillow = "*"
 static = "*"
 pytz = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"
