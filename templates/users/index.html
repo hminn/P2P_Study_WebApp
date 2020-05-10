@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="/static/css/fontawesome.min.css">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="/static/css/templatemo-style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <title>Home | P2P_Study</title>
+</head>
+<body>
+    <div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"></div>
+    <header class="style-module--wrap--33C_N style-module--isTop--3gJ9k">
+        {% include "nav.html" %}</header>
+    <div>
+        <!-- <h3 class="flex justify-center items-center">abce</h3> -->
+        <video id="video" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
+            <source src="{% static 'mp4/mins_dev.mp4'%}">
+        </video>
+    </div>
+    <section class="" style="height: 100vh; background-color:#1E314A;">
+        <div>
+            <h2 style="color:white;">If you want to go far, Go together!</h2>
+            <p style="color:white;">PPAP는 Peer to Peer study Assistant Program으로,<br />
+                동료학습을 효울적으로, 즐겁게 할 수 있도록 도와주는 웹서비스입니다
+            </p>
+        </div>
+        <div>
+            <img src="static/img/study-trans.png">
+        </div>
+    </section>
+    <section style="height: 100vh; background-color:#F4F4F4;">
+        <h2 style="color: #1E314A;">STEP1. To-do List</h2>
+        <h3 style="color: #1E314A;">Well begun, half done!</h3>
+        <p style="color: #1E314A;">
+            하루를 어떻게 계획하고 시작하느냐에 따라, 나머지 하루가 결정된다해도 과언이 아닙니다.<br />
+            PPAP는 To-do List를 통해 오늘 할 일을 조망하며, 하루를 계획합니다.
+        </p>
+    </section>
+    <section style="height: 100vh; background-color:#1E314A;">
+        <h2 style="color: white;">STEP2. Timetable</h2>
+        <h3 style="color: white;">Well begun, half done!</h3>
+        <p style="color: white;">
+            시간관리 기법인 Flanklin System의 Top-down 방식에 기반하여,<br />
+            To-do List의 계획들을 세분화한 후, 시간에 따라 분배하고 작성합니다.<br />
+            나와 함께하는 동료가 어떤 계획을 세웠는지, 현재 어느 정도 계획을 달성했는지를 확인하며<br />
+            자극을 받을 수도, 힘을 얻을 수도 있습니다.<br /><br />
+            학습시간과 휴식시간의 적절한 분배를 위해, Timer는 남은 시간을 알려줍니다.
+        </p>
+    </section>
+    <section style="height: 100vh; background-color:#F4F4F4;">
+        <h2 style="color: #1E314A;">STEP3. Feedback</h2>
+        <h3 style="color: #1E314A;">Use feedback analysis to identify your strengths! - Peter Drucker</h3>
+        <p style="color: #1E314A;">
+            Feedback으로 하루를 돌아보는 것은, 자신을 찾고 성장시킬 수 있는 매우 효과적인 방법입니다.<br /><br />
+            PPAP의 Feedback은 동료가 작성한 Feedback을 확인하며 서로 힘을 주고 받을 수 있게 해줄뿐만 아니라,<br />
+            Penalty 제도를 통해 동기부여를 받을 수 있는 시스템입니다.
+        </p>
+    </section>
+    {% include "footer.html" %}
+    </div>
+</body>
+</html>

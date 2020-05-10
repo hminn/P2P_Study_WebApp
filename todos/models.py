@@ -8,7 +8,7 @@ class TodoList(TimeStampedModel):
 
     contents = models.TextField(null=True, blank=True)
     user = models.ForeignKey(
-        "users.User", related_name="todolists", on_delete=models.CASCADE
+        "users.User", related_name="todolists", on_delete=models.CASCADE,
     )
     checked = models.BooleanField(default=False)
     submit_check = models.BooleanField(default=False)
@@ -35,7 +35,7 @@ class TimeTask(TimeStampedModel):
     )
     contents = models.TextField(null=True, blank=True)
     user = models.ForeignKey(
-        "users.User", related_name="timetasks", on_delete=models.CASCADE
+        "users.User", related_name="timetasks", on_delete=models.CASCADE,
     )
     checked = models.BooleanField(default=False)
     part = models.CharField(choices=PART_CHOICES, max_length=10, blank=True)

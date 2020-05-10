@@ -30,3 +30,72 @@ ul {
 a {
     color: #17a2b8;
 }
+
+/* 위에는 달력 관련 Design */
+/* 아래는 Custom Design */
+
+form div input {
+    border-radius: 0.5rem;
+}
+
+.taskinput-parent input {
+    height: 10px;
+}
+
+.feedback-parent textarea {
+    border-radius: 0.25rem;
+    height: 20rem;
+}
+
+.tm-color1 {
+    background-color: #9c9bab;
+}
+
+.tm-color2 {
+    background-color: #cfced7;
+}
+.tm-color3 {
+    background-color: #e7e9e5;
+}
+.tm-color4 {
+    background-color: #aa9c89;
+}
+.tm-color5 {
+    background-color: #68645c;
+}
+
+.oppa {
+    opacity:85%;
+}
+
+.clock-font {
+    font-family: 'Nanum Pen Script', cursive;
+}
+
+form {
+    font-family: 'Nanum Pen Script', cursive;
+    font-size : x-large;
+}
+
+.time-part {
+    font-family: 'Nanum Pen Script', cursive;
+    font-size : x-large;
+}
+
+.calendar {
+    height : 40vh
+}
+
+<style > #video {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    overflow: hidden;
+}
+</style >
+

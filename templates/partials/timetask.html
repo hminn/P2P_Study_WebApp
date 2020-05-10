@@ -1,34 +1,62 @@
-<div class="time-part h-full w-1/5 flex items-center justify-center">
+<div class="time-part h-full w-1/5 flex flex-col items-center justify-center mr-2">
+    {% if time == "1-1" %}
         <span>09:00</span>
+        <span>-</span>
+        <span>10:45</span>
+    {% endif %}
+    {% if time == "1-2" %}
+        <span>11:00</span>
+        <span>-</span>
+        <span>13:00</span>
+    {% endif %}
+    {% if time == "2-1" %}
+        <span>14:30</span>
+        <span>-</span>
+        <span>15:45</span>
+    {% endif %}
+    {% if time == "2-2" %}
+        <span>16:00</span>
+        <span>-</span>
+        <span>18:00</span>
+    {% endif %}
+    {% if time == "3" %}
+        <span>20:00</span>
+        <span>-</span>
+        <span>00:00</span>
+    {% endif %}
 </div>
-<div class="task-part h-full w-4/5 py-1 overflow-auto">
+<div class="task-part h-full w-4/5 py-1 overflow-auto flex flex-col justify-between">
     <div class="container flex flex-col">
         {% for object in part %}
             <form method="POST">
             {% csrf_token %}
-                <div class="mb-2">
+                <div class="mb-2 flex items-center">
                     <span>
                         <i class="fas fa-arrow-circle-right"></i>
                     </span>
-                    <span class="mx-1 my-1 h-full overflow-auto">
+                    <span class="mx-3 my-1 h-full overflow-auto">
                         {{object.contents}}
                     </span>
-                    <button class="w-6 h-6 rounded-full bg-blue-500 text-white" type="submit" name="del-task" value="{{object.id}}">
-                        <i class="fas fa-trash-alt text-xs"></i>
-                    </button>
+                    {% if only_show is None %}
+                        <button class="w-6 h-6 rounded-full tm-color5 text-white flex justify-center items-center" type="submit" name="del-task" value="{{object.id}}">
+                            <i class="fas fa-trash-alt text-xs"></i>
+                        </button>
+                    {% endif %}
                 </div>
             </form>
         {% endfor %}
     </div>
-    <div class="">
-        <form method="POST" class="flex" autocomplete="off">
-            {% csrf_token %}
-            <div class="w-full h-12">
-                {{form}}
-            </div>
-            <span class="flex my-auto">
-                <button type="submit" name="add-task" value={{part_num}} class="mx-3 my-2 w-12 h-12 rounded-full bg-red-500 text-white text-center"><i class="fas fa-plus text-xl"></i></button>
-            </span>
-        </form>
-    </div>
+    {% if only_show is None %}
+        <div class="flex flex-col">
+            <form method="POST" class="flex" autocomplete="off">
+                {% csrf_token %}
+                <div class="w-full h-12 taskinput-parent flex flex-col justify-content-end">
+                    {{form}}
+                </div>
+                <span class="flex pt-1">
+                    <button type="submit" name="add-task" value={{part_num}} class="mx-3 my-2 w-10 h-10 rounded-full tm-color5 text-white text-center"><i class="fas fa-plus text-xl"></i></button>
+                </span>
+            </form>
+        </div>
+    {% endif %}
 </div>

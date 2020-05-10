@@ -2,47 +2,59 @@
 {% block page_title %}
     Time Table
 {% endblock page_title %}
+
 {% block clock %}
 <body onload="showClock(), study_timer()">
-    <h1 id="clock" class="clock"></h1>
-    <h1 id="timetable" class="timetable"></h1>
+    <span class="flex flex-col justify-center tm-color5 h-40 items-center rounded-md mb-2 pt-1 clock-font">
+        <span id="clock" class="clock w-2/5 text-center text-4xl tm-color3 rounded-md mb-1"></span>
+        <span id="timetable" class="timetable text-white text-2xl"></span>
+    </span>
 </body>
 <script src="/static/js/timer.js"></script>
 <script src="/static/js/clock.js"></script>
 {% endblock clock %}
+
+{% block user_list %}
+<div class="h-20 w-full tm-color5 p-2 rounded-md">
+    <form method="POST" class="flex">
+    {% include "mixins/user_avatar.html" with user=user study_avatar="timetable" %}
+    {% for user in all_user %}
+        {% include "mixins/user_avatar.html" with user=user study_avatar="timetable" %}
+    {% endfor %}
+    </form>
+</div>
+{% endblock user_list %}
+
 {% block left-content%}
 <div class="tm-bg-primary-dark tm-block-table">
     <h2 class="tm-block-title">Time Table</h2>
     <div class="h-full w-full p-1">
-        <div class="tm-part mb-2"> 09:00 ~ 10:45
-            {% include "partials/timetask.html" with part=part_one part_num="one"%}
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_one part_num="one" time="1-1"%}
         </div>
-        <div class="tm-part mb-2"> 10:45 ~ 11:00
-            <h3>쉬는 시간 입니다</h3>
-        </div>
-        <div class=" tm-part mb-2"> 11:00 ~ 13:00
-            {% include "partials/timetask.html" with part=part_two part_num="two"%}
-        </div>
-        <div class="tm-part mb-2"> 13:00 ~ 14:30
-            <h3>점심 시간 입니다</h3>
-        </div>
-        <div class="tm-part mb-2"> 14:30 ~ 15:45
-            {% include "partials/timetask.html" with part=part_three part_num="three"%}
-        </div>
-        <div class="tm-part mb-2"> 15:45 ~ 16:00
-            <h3>쉬는 시간 입니다</h3>
-        </div>
-        <div class="tm-part mb-2"> 16:00 ~ 18:00
-            {% include "partials/timetask.html" with part=part_four part_num="four"%}
-        </div>
-        <div class="tm-part mb-2"> 18:00 ~ 20:00
-            <h3>저녁 시간 입니다</h3>
-        </div>
-        <div class="tm-part mb-2"> 20:00 ~
-            {% include "partials/timetask.html" with part=part_five part_num="five"%}
+        <div class="tm-rest-part mb-2">
+            <span>쉬는 시간</span>
         </div>
         <div class="tm-part mb-2">
-            {% include "partials/timetask.html" with part=part_six part_num="six"%}
+            {% include "partials/timetask.html" with part=part_two part_num="two" time="1-2"%}
+        </div>
+        <div class="tm-rest-part mb-2">
+            <span>점심 시간</span>
+        </div>
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_three part_num="three" time="2-1"%}
+        </div>
+        <div class="tm-rest-part mb-2">
+            <span>쉬는 시간</span>
+        </div>
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_four part_num="four" time="2-2"%}
+        </div>
+        <div class="tm-rest-part mb-2">
+            <span>저녁 시간</span>
+        </div>
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_five part_num="five" time="3"%}
         </div>
     </div>
 </div>
@@ -50,21 +62,23 @@
 {% block right-content%}
 <div class="tm-bg-primary-dark tm-block overflow-auto">
     <h2 class="tm-block-title">Today's TodoList</h2>
-    <div class="container flex flex-col">
-        <form method="POST" class="save">
-        {% csrf_token %}
-            {% for object in todo_list %}
-                <div class="mb-3 flex">
-                    <div class="mr-2">
-                        <input type="checkbox" name="check-todo" value="{{object.id}}" {% if object.checked %}checked{% endif %}/>
+    {% if todo_list %}
+        <div class="container rounded-md flex flex-col pt-2 tm-color3 mb-2">
+            <form method="POST" class="save">
+            {% csrf_token %}
+                {% for object in todo_list %}
+                    <div class="mb-3 flex">
+                        <div class="mr-2">
+                            <input type="checkbox" name="check-todo" value="{{object.id}}" {% if object.checked %}checked{% endif %}/>
+                        </div>
+                        <span class="h-full overflow-auto"> {{object.contents}}</span>
                     </div>
-                    <span class="h-full overflow-auto"> {{object.contents}}</span>
+                {% endfor %}
+                <div class="flex justify-center my-3">
+                    <button type="submit" name="save" class=" w-12 h-12 rounded-full tm-color5 text-white">save</button>
                 </div>
-            {% endfor %}
-            <div class="flex justify-center my-3">
-                <button type="submit" name="save" class=" w-12 h-12 rounded-full bg-red-500 text-white">save</button>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
+    {% endif %}
 </div>
 {% endblock right-content%}

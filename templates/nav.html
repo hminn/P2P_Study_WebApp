@@ -1,7 +1,9 @@
-<nav class="navbar navbar-expand-xl">
+{% load static %}
+
+<nav class="navbar navbar-expand-xl h-5 z-10 bg-black opacity-75 position-fixed fixed-top">
     <div class="container h-100">
         <a class="navbar-brand" href="{% url 'core:home' %}">
-            <h1 class="tm-site-title mb-0">Min's Dev</h1>
+            <img style="width:50px; height:auto;" class="rounded-circle" src="{% static 'img/Mins_Dev_Logo_Circle.png' %}" alt="Logo Image"><h1 class="tm-site-title mb-0">&nbsp;Min's Dev</h1>
         </a>
         <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

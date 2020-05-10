@@ -1,4 +1,5 @@
 {% extends "todo_base.html" %}
+{% load static %}
 
 {% block page_title %}
     Todos
@@ -6,53 +7,66 @@
 
 {% block clock %}
 <body onload="showClock()">
-    <span style="color:red"><h1 id="clock" class="clock"></h1></span>
+    <span class="flex flex-col justify-center tm-color5 h-40 items-center rounded-md mb-2 pt-1 clock-font">
+        <span id="clock" class="clock w-2/5 text-center text-4xl tm-color3 rounded-md mb-1"></span>
+    </span>
     <div id="timetable" class="timetable"></div>
 </body>
 <script src="/static/js/clock.js"></script>
 {% endblock clock %}
 
+{% block user_list %}
+{% endblock user_list %}
+
 {% block left-content%}
 <div class="tm-bg-primary-dark tm-block">
     <h2 class="tm-block-title">Calendar</h2>
+    <div class="flex flex-col justify-center items-center">
+        <span class="font-bold text-white text-2xl mb-4 -mt-2">May</span>
+        <img class="calendar w-full rounded-md" src="{% static '/img/calendar.png' %}">
+    </div>
 </div>
 {% endblock left-content%}
 
 {% block right-content%}
-<div class="tm-bg-primary-dark tm-block">
+<div class="tm-bg-primary-dark tm-block flex flex-col justify-between">
     <h2 class="tm-block-title">Today's TodoList</h2>
-    <div class="container flex flex-col">
-        {% for object in todo_list %}
-        <form method="POST" class="">
-        {% csrf_token %}
-            <div class="mb-2">
-                <span><i class="fas fa-arrow-circle-right"></i></span>
-                <span class="mx-2 my-1 h-full overflow-auto"> {{object.contents}}</span>
-                <button class="w-8 h-8 rounded-full bg-red-500 text-white" type="submit" name="del-todo" value="{{object.id}}"><i class="fas fa-trash-alt"></i></button>
-            </div>
-        </form>
-        {% endfor %}
-    </div>
-    <div class="">
-        <form method="POST" class="flex" autocomplete="off">
+    {% if todo_list%}
+        <div class="container rounded-md flex flex-col pt-2 tm-color3 mb-2">
+            {% for object in todo_list %}
+            <form method="POST" class="">
+            {% csrf_token %}
+                <div class="mb-2 flex items-center">
+                    <span><i class="fas fa-arrow-circle-right"></i></span>
+                    <span class="mx-2 my-1 h-full overflow-auto"> {{object.contents}}</span>
+                    <div class="flex items-center justify-center text-center">
+                        <button class="w-6 h-6 rounded-full tm-color5 flex justify-center items-center" type="submit" name="del-todo" value="{{object.id}}"><i class="fas fa-trash-alt text-sm text-white"></i></button>
+                    </div>
+                </div>
+            </form>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="flex flex-col">
+        <form method="POST" class="flex mb-3" autocomplete="off">
             {% csrf_token %}
             <div class="w-full h-12">
                 {{form}}
             </div>
             <span class="flex my-auto">
-                <button type="submit" name="add-todo" value="one" class="mx-3 my-2 w-12 h-12 rounded-full bg-red-500 text-white text-center"><i class="fas fa-plus text-xl"></i></button>
+                <button type="submit" name="add-todo" value="one" class="mx-3 my-2 w-12 h-12 rounded-full tm-color5 text-white text-center"><i class="fas fa-plus text-xl"></i></button>
             </span>
         </form>
-    </div>
-    <div class="flex justify-center">
-        <form method="POST" class="w-1/5 h-10 bg-blue-900 flex justify-center items-center font-bold text-white rounded-md">
-            {% csrf_token %}
-            {% if submit_check %}
-                <button type="submit" name="fix" class="w-full h-full">수정</button>
-            {% else %}
-                <button type="submit" name="submit" class="w-full h-full">제출</button>
-            {% endif %}
-        </form>
+        <div class="flex justify-center">
+            <form method="POST" class="w-1/5 h-10 tm-color5 flex justify-center items-center font-bold text-white rounded-md">
+                {% csrf_token %}
+                {% if submit_check %}
+                    <button type="submit" name="fix" class="w-full h-full">수정</button>
+                {% else %}
+                    <button type="submit" name="submit" class="w-full h-full">제출</button>
+                {% endif %}
+            </form>
+        </div>
     </div>
 </div>
 {% endblock right-content%}

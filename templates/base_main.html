@@ -1,261 +1,80 @@
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <p class="text-white mt-5 mb-5">Welcome back, <b>Admin</b></p>
+{% extends "base.html" %}
+
+{% block page_title %}
+Home
+{% endblock page_title %}
+
+{% block container_start%}
+{% endblock container_start%}
+
+{% block content %}
+<div class="flex flex-col">
+    <div class="position-absolute h-75 w-full flex justify-center items-center pt-56">
+        <div class="flex flex-col justify-center items-center oppa">
+        <span class="text-5xl font-bold text-white">If you want to go far, </span>
+        <span class="text-5xl font-bold text-white"> Go together! </span>
         </div>
     </div>
-    <!-- row -->
-    <div class="row tm-content-row">
-        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-            <div class="tm-bg-primary-dark tm-block">
-                <h2 class="tm-block-title">Latest Hits</h2>
-                <canvas id="lineChart"></canvas>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-            <div class="tm-bg-primary-dark tm-block">
-                <h2 class="tm-block-title">Performance</h2>
-                <canvas id="barChart"></canvas>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-            <div class="tm-bg-primary-dark tm-block tm-block-taller">
-                <h2 class="tm-block-title">Storage Information</h2>
-                <div id="pieChartContainer">
-                    <canvas id="pieChart" class="chartjs-render-monitor" width="200" height="200"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-            <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
-                <h2 class="tm-block-title">Notification List</h2>
-                <div class="tm-notification-items">
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="/static/img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Jessica</b> and <b>6 others</b> sent you new <a href="#"
-                                    class="tm-notification-link">product updates</a>. Check new orders.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="/static/img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Oliver Too</b> and <b>6 others</b> sent you existing <a href="#"
-                                    class="tm-notification-link">product updates</a>. Read more reports.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="/static/img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Victoria</b> and <b>6 others</b> sent you <a href="#"
-                                    class="tm-notification-link">order updates</a>. Read order information.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="/static/img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Laura Cute</b> and <b>6 others</b> sent you <a href="#"
-                                    class="tm-notification-link">product records</a>.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="/static/img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Samantha</b> and <b>6 others</b> sent you <a href="#"
-                                    class="tm-notification-link">order stuffs</a>.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="/static/img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Sophie</b> and <b>6 others</b> sent you <a href="#"
-                                    class="tm-notification-link">product updates</a>.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="/static/img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Lily A</b> and <b>6 others</b> sent you <a href="#"
-                                    class="tm-notification-link">product updates</a>.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="/static/img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Amara</b> and <b>6 others</b> sent you <a href="#"
-                                    class="tm-notification-link">product updates</a>.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                    <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="/static/img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                        <div class="media-body">
-                            <p class="mb-2"><b>Cinthela</b> and <b>6 others</b> sent you <a href="#"
-                                    class="tm-notification-link">product updates</a>.</p>
-                            <span class="tm-small tm-text-color-secondary">6h ago.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 tm-block-col">
-            <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-                <h2 class="tm-block-title">Orders List</h2>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">ORDER NO.</th>
-                            <th scope="col">STATUS</th>
-                            <th scope="col">OPERATORS</th>
-                            <th scope="col">LOCATION</th>
-                            <th scope="col">DISTANCE</th>
-                            <th scope="col">START DATE</th>
-                            <th scope="col">EST DELIVERY DUE</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row"><b>#122349</b></th>
-                            <td>
-                                <div class="tm-status-circle moving">
-                                </div>Moving
-                            </td>
-                            <td><b>Oliver Trag</b></td>
-                            <td><b>London, UK</b></td>
-                            <td><b>485 km</b></td>
-                            <td>16:00, 12 NOV 2018</td>
-                            <td>08:00, 18 NOV 2018</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><b>#122348</b></th>
-                            <td>
-                                <div class="tm-status-circle pending">
-                                </div>Pending
-                            </td>
-                            <td><b>Jacob Miller</b></td>
-                            <td><b>London, UK</b></td>
-                            <td><b>360 km</b></td>
-                            <td>11:00, 10 NOV 2018</td>
-                            <td>04:00, 14 NOV 2018</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><b>#122347</b></th>
-                            <td>
-                                <div class="tm-status-circle cancelled">
-                                </div>Cancelled
-                            </td>
-                            <td><b>George Wilson</b></td>
-                            <td><b>London, UK</b></td>
-                            <td><b>340 km</b></td>
-                            <td>12:00, 22 NOV 2018</td>
-                            <td>06:00, 28 NOV 2018</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><b>#122346</b></th>
-                            <td>
-                                <div class="tm-status-circle moving">
-                                </div>Moving
-                            </td>
-                            <td><b>William Aung</b></td>
-                            <td><b>London, UK</b></td>
-                            <td><b>218 km</b></td>
-                            <td>15:00, 10 NOV 2018</td>
-                            <td>09:00, 14 NOV 2018</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><b>#122345</b></th>
-                            <td>
-                                <div class="tm-status-circle pending">
-                                </div>Pending
-                            </td>
-                            <td><b>Harry Ryan</b></td>
-                            <td><b>London, UK</b></td>
-                            <td><b>280 km</b></td>
-                            <td>15:00, 11 NOV 2018</td>
-                            <td>09:00, 17 NOV 2018</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><b>#122344</b></th>
-                            <td>
-                                <div class="tm-status-circle pending">
-                                </div>Pending
-                            </td>
-                            <td><b>Michael Jones</b></td>
-                            <td><b>London, UK</b></td>
-                            <td><b>218 km</b></td>
-                            <td>18:00, 12 OCT 2018</td>
-                            <td>06:00, 18 OCT 2018</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><b>#122343</b></th>
-                            <td>
-                                <div class="tm-status-circle moving">
-                                </div>Moving
-                            </td>
-                            <td><b>Timmy Davis</b></td>
-                            <td><b>London, UK</b></td>
-                            <td><b>218 km</b></td>
-                            <td>12:00, 10 OCT 2018</td>
-                            <td>08:00, 18 OCT 2018</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><b>#122342</b></th>
-                            <td>
-                                <div class="tm-status-circle moving">
-                                </div>Moving
-                            </td>
-                            <td><b>Oscar Phyo</b></td>
-                            <td><b>London, UK</b></td>
-                            <td><b>420 km</b></td>
-                            <td>15:30, 06 OCT 2018</td>
-                            <td>09:30, 16 OCT 2018</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><b>#122341</b></th>
-                            <td>
-                                <div class="tm-status-circle moving">
-                                </div>Moving
-                            </td>
-                            <td><b>Charlie Brown</b></td>
-                            <td><b>London, UK</b></td>
-                            <td><b>300 km</b></td>
-                            <td>11:00, 10 OCT 2018</td>
-                            <td>03:00, 14 OCT 2018</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><b>#122340</b></th>
-                            <td>
-                                <div class="tm-status-circle cancelled">
-                                </div>Cancelled
-                            </td>
-                            <td><b>Wilson Cookies</b></td>
-                            <td><b>London, UK</b></td>
-                            <td><b>218 km</b></td>
-                            <td>17:30, 12 OCT 2018</td>
-                            <td>08:30, 22 OCT 2018</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><b>#122339</b></th>
-                            <td>
-                                <div class="tm-status-circle moving">
-                                </div>Moving
-                            </td>
-                            <td><b>Richard Clamon</b></td>
-                            <td><b>London, UK</b></td>
-                            <td><b>150 km</b></td>
-                            <td>15:00, 12 OCT 2018</td>
-                            <td>09:20, 26 OCT 2018</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div>
+        <!-- <h3 class="flex justify-center items-center">abce</h3> -->
+        <video class="-mt-24" id="video" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
+            <source src="static/mp4/Mins_dev.mp4">
+        </video>
     </div>
+    <section class="h-75vh bg-white flex justify-around">
+        <div class="h-full flex flex-col justify-center">
+            <span class="text-black text-5xl mb-5 font-bold">If you want to go far,<br /> Go together!</span>
+            <span class="text-xl"style="color:black;">PPAP는 Peer to Peer study Assistant Program으로,<br />
+                동료학습을 효울적으로, 즐겁게 할 수 있도록 도와주는 웹서비스입니다
+            </span>
+        </div>
+        <div class="h-full flex flex-col justify-center">
+            <img class="h-50vh w-50vh" src="static/img/peer.png">
+        </div>
+    </section>
+    <section class="h-75vh tm-color2 flex justify-around">
+        <div class="h-full flex flex-col justify-center">
+            <img class="h-50vh w-50vh" src="static/img/todo.png">
+        </div>
+        <div class="h-full flex flex-col justify-center">
+            <span class="text-black text-5xl mb-5 font-bold">STEP1. To-do List</span>
+            <span class="text-black text-5xl mb-5 font-bold">Well begun, half done!</span>
+            <span class="text-xl"style="color:black;">하루를 어떻게 계획하고 시작하느냐에 따라, 나머지 하루가 결정된다해도 과언이 아닙니다.<br />
+            PPAP는 To-do List를 통해 오늘 할 일을 조망하며, 하루를 계획합니다.
+            </span>
+        </div>
+    </section>
+    <section class="h-75vh tm-color3 flex justify-around">
+        <div class="h-full flex flex-col justify-center">
+            <span class="text-black text-5xl mb-5 font-bold">STEP2. Timetable</span>
+            <span class="text-black text-5xl mb-5 font-bold">Luck is the residue of planning.</span>
+            <span class="text-xl"style="color:black;">시간관리 기법인 Flanklin System의 Top-down 방식에 기반하여,<br />
+            To-do List의 계획들을 세분화한 후, 시간에 따라 분배하고 작성합니다.<br />
+            나와 함께하는 동료가 어떤 계획을 세웠는지, 현재 어느 정도 계획을 달성했는지를 확인하며<br />
+            자극을 받을 수도, 힘을 얻을 수도 있습니다.<br /><br />
+            학습시간과 휴식시간의 적절한 분배를 위해, Timer는 남은 시간을 알려줍니다.
+            </span>
+        </div>
+        <div class="h-full flex flex-col justify-center">
+            <img class="h-50vh w-50vh" src="static/img/timetable.png">
+        </div>
+    </section>
+    <section class="h-75vh tm-color4 flex justify-around">
+        <div class="h-full flex flex-col justify-center">
+            <img class="h-50vh w-50vh" src="static/img/feedback2.png">
+        </div>
+        <div class="h-full flex flex-col justify-center">
+            <span class="text-black text-5xl mb-5 font-bold">STEP3. Feedback</span>
+            <span class="text-black text-4xl font-bold">- Peter Drucker</span>
+            <span class="text-black text-3xl mb-5 font-bold">"Use feedback analysis to identify your strengths!"</span>
+            <span class="text-xl"style="color:black;">Feedback으로 하루를 돌아보는 것은, 자신을 찾고 성장시킬 수 있는 매우 효과적인 방법입니다.<br />
+            PPAP의 Feedback은 동료가 작성한 Feedback을 확인하며 서로 힘을 주고 받을 수 있게 해줄뿐만 아니라,<br />
+            Penalty 제도를 통해 동기부여를 받을 수 있는 시스템입니다.
+            </span>
+        </div>
+    </section>
 </div>
+{% endblock content %}
+
+{% block container_end %}
+{% endblock container_end %}
