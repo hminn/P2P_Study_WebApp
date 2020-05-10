@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
     <!-- https://fonts.google.com/specimen/Roboto -->
@@ -13,51 +14,19 @@
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="/static/css/templatemo-style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <title>{% block page_title %}{% endblock page_title %}| P2P_Study</title>
 </head>
-    <body id="reportsPage">
-        <div class="h-100 container" id="home">
+    <body id="reportsPage" class="" style="background-color:#E9ECF2;">
+        {% block container_start %}
+        <div class="h-100 container mt-32" id="home">
+        {% endblock container_start %}
             {% include "nav.html" %}
-            {% block base_main %}
-            {% include "base_main.html" %}
-            {% endblock base_main %}
-            {% block content%}{% endblock content%}
-            {% include "footer.html" %}
+            {% block content %}{% endblock content %}
+        {% block container_end %}
         </div>
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <script src="/static/js/jquery-3.3.1.min.js"></script>
-        <!-- https://jquery.com/download/ -->
-        <script src="/static/js/moment.min.js"></script>
-        <!-- https://momentjs.com/ -->
-        <script src="/static/js/Chart.min.js"></script>
-        <!-- http://www.chartjs.org/docs/latest/ -->
-        <script src="/static/js/bootstrap.min.js"></script>
-        <!-- https://getbootstrap.com/ -->
-        <script src="/static/js/tooplate-scripts.js"></script>
-        <script>
-            Chart.defaults.global.defaultFontColor = 'white';
-            let ctxLine,
-                ctxBar,
-                ctxPie,
-                optionsLine,
-                optionsBar,
-                optionsPie,
-                configLine,
-                configBar,
-                configPie,
-                lineChart;
-            barChart, pieChart;
-            // DOM is ready
-            $(function () {
-                drawLineChart(); // Line Chart
-                drawBarChart(); // Bar Chart
-                drawPieChart(); // Pie Chart
-
-                $(window).resize(function () {
-                    updateLineChart();
-                    updateBarChart();
-                });
-            })
-        </script>
+        {% endblock container_end %}
+        {% include "footer.html" %}
     </body>
 </html>

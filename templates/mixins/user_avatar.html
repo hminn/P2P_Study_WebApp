@@ -1,7 +1,31 @@
-{% if user.avatar %}
-    <div class="{{h_and_w|default:'h-16 w-16'}} rounded-full bg-cover" style="background-image: url({{user.avatar.url}});">
-{% else %}
-    <div class="{{h_and_w|default:'h-16 w-16'}} bg-gray-700 rounded-full text-white flex justify-center items-center overflow-hidden">
-        <span class="{{text|default:'text-3xl'}}">{{user.first_name|first}}</span>
+{% if study_avatar %}
+    {% if study_avatar == "timetable" %}
+        <a href="{% if user == request.user %} {% url 'todos:timetable' %} {% else %} {% url 'todos:avatar_timetable' user.id %} {% endif %}">
+            {% if user.avatar %}
+                    <div class="{{h_and_w|default:'h-16 w-16'}} rounded-full bg-cover mr-2" style="background-image: url({{user.avatar.url}});">
+            {% else %}
+                <div class="{{h_and_w|default:'h-16 w-16'}} tm-color4 rounded-full text-white flex justify-center items-center overflow-hidden mr-2">
+                    <span class="{{text|default:'text-3xl'}}">{{user.first_name|first}}</span>
+                {% endif %}
+            </div>
+        </a>
+    {% else %}
+        <a href="{% if user == request.user %} {% url 'feedbacks:feedback' %} {% else %} {% url 'feedbacks:avatar_feedback' user.id %} {% endif %}">
+            {% if user.avatar %}
+                    <div class="{{h_and_w|default:'h-16 w-16'}} rounded-full bg-cover mr-2" style="background-image: url({{user.avatar.url}});">
+            {% else %}
+                <div class="{{h_and_w|default:'h-16 w-16'}} tm-color4 rounded-full text-white flex justify-center items-center overflow-hidden mr-2">
+                    <span class="{{text|default:'text-3xl'}}">{{user.first_name|first}}</span>
+                {% endif %}
+            </div>
+        </a>
     {% endif %}
-</div>
+{% else %}
+    {% if user.avatar %}
+        <div class="{{h_and_w|default:'h-16 w-16'}} rounded-full bg-cover mr-2" style="background-image: url({{user.avatar.url}});">
+    {% else %}
+        <div class="{{h_and_w|default:'h-16 w-16'}} tm-color4 rounded-full text-white flex justify-center items-center overflow-hidden mr-2">
+            <span class="{{text|default:'text-3xl'}}">{{user.first_name|first}}</span>
+        {% endif %}
+    </div>
+{% endif %}

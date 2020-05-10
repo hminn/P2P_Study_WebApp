@@ -10,7 +10,8 @@ class Feedback(core_models.TimeStampedModel):
     user = models.ForeignKey(
         user_models.User, related_name="feedbacks", on_delete=models.CASCADE
     )
-    contents = models.TextField(default="", blank=True)
+    contents = models.TextField(default="", blank=True, null=True)
+    created_date = models.DateField(auto_now_add=True)
     submit_check = models.BooleanField(default=False)
 
     def __str__(self):

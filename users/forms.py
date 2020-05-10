@@ -29,6 +29,7 @@ class SignUpForm(forms.ModelForm):
             "first_name": forms.TextInput(attrs={"placeholder": "First Name"}),
             "last_name": forms.TextInput(attrs={"placeholder": "Last Name"}),
             "email": forms.TextInput(attrs={"placeholder": "Email"}),
+            "birthdate": forms.DateInput(attrs={"placeholder": "Birthdate"}),
         }
 
     password = forms.CharField(

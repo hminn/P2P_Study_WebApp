@@ -2,17 +2,15 @@ from django import forms
 from .models import Feedback
 
 
-class FeedbackForm(forms.Form):
-    feedback = forms.CharField(
-        label=" ",
-        label_suffix=" ",
-        disabled=False,
-        initial="Today Feedback",
-        widget=forms.Textarea,
-    )
-
-    def save(self, commit=True):
-        post = Feedback(**self.cleaned_data)
-        if commit:
-            post.save()
-        return post
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = [
+            "contents",
+        ]
+        labels = {
+            "contents": "",
+        }
+        widgets = {
+            "contents": forms.Textarea(attrs={"placeholder": "피드백을 입력해주세요."}),
+        }

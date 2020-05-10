@@ -31,7 +31,6 @@ class TimeTaskAdmin(admin.ModelAdmin):
         "created_date",
         "part",
     )
-    pass
 
 
 @admin.register(models.WeekTask)

@@ -1,0 +1,86 @@
+{% extends "todo_base.html" %}
+{% block page_title %}
+    Time Table
+{% endblock page_title %}
+
+{% block clock %}
+<body onload="showClock(), study_timer()">
+    <span class="flex flex-col justify-center tm-color5 h-40 items-center rounded-md mb-2 pt-1 clock-font">
+        <span id="clock" class="clock w-2/5 text-center text-4xl tm-color3 rounded-md mb-1"></span>
+        <span id="timetable" class="timetable text-white text-2xl"></span>
+    </span>
+</body>
+<script src="/static/js/timer.js"></script>
+<script src="/static/js/clock.js"></script>
+{% endblock clock %}
+
+{% block user_list %}
+<div class="h-20 w-full tm-color5 p-2 rounded-md">
+    <form method="POST" class="flex">
+    {% include "mixins/user_avatar.html" with user=request.user study_avatar="timetable" %}
+    {% for other_user in all_user %}
+        {% include "mixins/user_avatar.html" with user=other_user study_avatar="timetable" %}
+    {% endfor %}
+    </form>
+</div>
+{% endblock user_list %}
+
+{% block left-content%}
+<div class="tm-bg-primary-dark tm-block-table">
+    <h2 class="tm-block-title">Time Table</h2>
+    <div class="h-full w-full p-1">
+        <div class="tm-part mb-2 ">
+            {% include "partials/timetask.html" with part=part_one part_num="one" time="1-1" only_show=True %}
+        </div>
+        <div class="tm-rest-part mb-2">
+            <span>쉬는 시간</span>
+        </div>
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_two part_num="two" time="1-2" only_show=True %}
+        </div>
+        <div class="tm-rest-part mb-2">
+            <span>점심 시간</span>
+        </div>
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_three part_num="three" time="2-1" only_show=True %}
+        </div>
+        <div class="tm-rest-part mb-2">
+            <span>쉬는 시간</span>
+        </div>
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_four part_num="four" time="2-2" only_show=True %}
+        </div>
+        <div class="tm-rest-part mb-2">
+            <span>저녁 시간</span>
+        </div>
+        <div class="tm-part mb-2">
+            {% include "partials/timetask.html" with part=part_five part_num="five" time="3" only_show=True %}
+        </div>
+    </div>
+</div>
+{% endblock left-content%}
+{% block right-content%}
+<div class="tm-bg-primary-dark tm-block overflow-auto">
+    <h2 class="tm-block-title">Today's TodoList</h2>
+    {% if todo_list %}
+        <div class="container rounded-md flex flex-col pt-2 tm-color3 mb-2">
+            <form method="POST" class="save">
+            {% csrf_token %}
+                {% for object in todo_list %}
+                    <div class="mb-3 flex">
+                        <div class="mr-2">
+                            <input type="checkbox" name="check-todo" value="{{object.id}}" {% if object.checked %}checked{% endif %}/>
+                        </div>
+                        <span class="h-full overflow-auto"> {{object.contents}}</span>
+                    </div>
+                {% endfor %}
+                {% if user == request.user.id %}
+                    <div class="flex justify-center my-3">
+                        <button type="submit" name="save" class=" w-12 h-12 rounded-full bg-blue-900 text-white">save</button>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    {% endif %}
+</div>
+{% endblock right-content%}
