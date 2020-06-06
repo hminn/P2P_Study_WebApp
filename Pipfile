@@ -8,7 +8,7 @@ flake8 = "*"
 black = "*"
 
 [packages]
-django = "==3.0.4"
+django = "==3.0.7"
 pillow = "*"
 static = "*"
 pytz = "*"
